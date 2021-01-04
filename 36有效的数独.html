@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /*
+              数字 1-9 在每一行只能出现一次。
+              数字 1-9 在每一列只能出现一次。
+              数字 1-9 在每一个以粗实线分隔的 3x3 宫内只能出现一次。
+
+              [
+                  ["5","3",".",".","7",".",".",".","."],
+                  ["6",".",".","1","9","5",".",".","."],
+                  [".","9","8",".",".",".",".","6","."],
+                  ["8",".",".",".","6",".",".",".","3"],
+                  ["4",".",".","8",".","3",".",".","1"],
+                  ["7",".",".",".","2",".",".",".","6"],
+                  [".","6",".",".",".",".","2","8","."],
+                  [".",".",".","4","1","9",".",".","5"],
+                  [".",".",".",".","8",".",".","7","9"]
+              ]
+              */
+
+      var isValidSudoku = function (board) {
+        let nums = ["1", "2", "3", "4", "5", "6", "7", "8", "9"];
+        let colums = [[], [], [], [], [], [], [], [], []];
+        let boxes = [[], [], [], [], [], [], [], [], []];
+        for (let i = 0; i < board.length; i++) {
+          // arrItem = board[i]
+          for (let j = 0; j < board[i].length; j++) {
+            let num = board[i][j];
+
+            const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3); // 对应的盒子
+
+            // 首先得是数字,然后满足每行出现不止出现一次
+            if (nums.indexOf(num) > -1) {
+              if (board[i].indexOf(num) != board[i].lastIndexOf(num)) {
+                console.log(board[i].indexOf(num), board[i].lastIndexOf(num));
+                return false;
+              }
+              if (colums[j].indexOf(num) != -1) {
+                return false;
+              } else {
+                // 接着满足每列出现一次
+                colums[j].push(num);
+              }
+
+              if (boxes[boxIndex].indexOf(num) != -1) {
+                return false;
+              } else {
+                boxes[boxIndex].push(num);
+              }
+            }
+          }
+        }
+        return true;
+      };
+
+      //   const isValidSudoku = (board) => {
+      //     // 步骤 1：初始化横、纵以及小九宫格
+      //     const rows = [],
+      //       columns = [],
+      //       boxes = [];
+      //     for (let i = 0; i < 9; i++) {
+      //       rows[i] = [];
+      //       columns[i] = [];
+      //       boxes[i] = [];
+      //     }
+      //     // 对应的 rows 为 [[], [], [], [], [], [], [], [], []]
+
+      //     // 步骤 2：遍历填充值
+      //     for (let i = 0; i < 9; i++) {
+      //       for (let j = 0; j < 9; j++) {
+      //         // 获取值
+      //         const value = board[i][j];
+
+      //         // 先判断非 . 元素
+      //         if (value !== ".") {
+      //           // 检验横排
+      //           if (!rows[i].includes(value)) {
+      //             rows[i].push(value);
+      //           } else {
+      //             return false;
+      //           }
+
+      //           // 检验竖排
+      //           if (!columns[j].includes(value)) {
+      //             columns[j].push(value);
+      //           } else {
+      //             return false;
+      //           }
+
+      //           // 检查盒子
+      //           const boxIndex = Math.floor(i / 3) * 3 + Math.floor(j / 3); // 对应的盒子
+      //           if (!boxes[boxIndex].includes(value)) {
+      //             boxes[boxIndex].push(value);
+      //           } else {
+      //             return false;
+      //           }
+      //         }
+      //       }
+      //     }
+
+      //     // 步骤 3：如果没有问题，就是真的，返回 true
+      //     return true;
+      //   };
+      //   console.log(
+      //     isValidSudoku([
+      //       ["5", "3", ".", ".", "7", ".", ".", ".", "3"],
+      //       ["6", ".", ".", "1", "9", "5", ".", ".", "."],
+      //       [".", "9", "8", ".", ".", ".", ".", "6", "."],
+      //       ["8", ".", ".", ".", "6", ".", ".", ".", "3"],
+      //       ["4", ".", ".", "8", ".", "3", ".", ".", "1"],
+      //       ["7", ".", ".", ".", "2", ".", ".", ".", "6"],
+      //       [".", "6", ".", ".", ".", ".", "2", "8", "."],
+      //       [".", ".", ".", "4", "1", "9", ".", ".", "5"],
+      //       [".", ".", ".", ".", "8", ".", ".", "7", "9"],
+      //     ])
+      //   );
+      console.log(
+        isValidSudoku([
+          [".", ".", "4", ".", ".", ".", "6", "3", "."],
+          [".", ".", ".", ".", ".", ".", ".", ".", "."],
+          ["5", ".", ".", ".", ".", ".", ".", "9", "."],
+          [".", ".", ".", "5", "6", ".", ".", ".", "."],
+          ["4", ".", "3", ".", ".", ".", ".", ".", "1"],
+          [".", ".", ".", "7", ".", ".", ".", ".", "."],
+          [".", ".", ".", "5", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", ".", ".", ".", "."],
+          [".", ".", ".", ".", ".", ".", ".", ".", "."],
+        ])
+      );
+    </script>
+  </body>
+</html>
