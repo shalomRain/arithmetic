@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let str = -123;
+      var reverse = function (str) {
+        let arr = str.toString().split("");
+
+        if (arr[0] == "-") {
+          arr.shift();
+          let newArr = arr.reverse().join("")
+          if (-newArr < Math.pow(-2, 31)){
+              return 0
+          }
+            return -newArr;
+        }
+        let newArr = arr.reverse().join("")
+        if(newArr > Math.pow(2, 31) - 1){
+            return 0
+        }
+
+        return Number(newArr);
+      };
+      console.log(reverse(str));
+    </script>
+  </body>
+</html>

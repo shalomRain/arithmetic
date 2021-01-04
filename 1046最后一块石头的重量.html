@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      let arr = [2, 7, 4, 1, 8, 1];
+
+      let lastStoneWeight = function (stones) {
+        if (stones.length == 1) {
+          return stones.join();
+        }
+        let small = 0;
+        let bigStone = Math.max(...stones);
+        let bigStoneIndex = stones.indexOf(bigStone);
+        stones.splice(bigStoneIndex, 1); // 删除最大
+        let smallStone = Math.max(...stones);
+        let smallStoneIndex = stones.indexOf(smallStone);
+        if (smallStone == bigStone) {
+          stones.splice(smallStoneIndex, 1);
+        } else {
+          stones.splice(smallStoneIndex, 1, bigStone - smallStone);
+        }
+
+        if (stones.length >= 1) {
+          return lastStoneWeight(stones);
+        } else if (stones.length == 0) {
+          return 0;
+        }
+      };
+
+      console.log(lastStoneWeight(arr));
+    </script>
+  </body>
+</html>
