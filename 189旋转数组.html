@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 给定一个数组，将数组中的元素向右移动 k 个位置，其中 k 是非负数。
+
+      /*
+              输入: [1,2,3,4,5,6,7] 和 k = 3
+              输出: [5,6,7,1,2,3,4]
+              解释:
+              向右旋转 1 步: [7,1,2,3,4,5,6]
+              向右旋转 2 步: [6,7,1,2,3,4,5]
+              向右旋转 3 步: [5,6,7,1,2,3,4]
+              @param {number[]} nums
+              @param {number} k
+              @return {void} Do not return anything, modify nums in-place instead.
+              */
+      let nums = [1, 2, 3, 4]
+      var rotate = function (nums, k) {
+        // 1. 循环，让k<nums.length
+        while (k > nums.length) {
+          k = k - nums.length
+        }
+        let newArray = []
+        // 2. 开始移动数组
+        for (let i = 0; i < nums.length; i++) {
+          if (i + k < nums.length) {
+            newArray[i + k] = nums[i]
+          } else {
+            newArray[i + k - nums.length] = nums[i]
+          }
+        }
+        // 3. 逐个替换
+        for (let i = 0; i < nums.length; i++) {
+          nums[i] = newArray[i]
+        }
+      }
+
+      let k = 2
+      //   rotate(nums, k)
+      //   console.log(k, nums)
+
+      //   备注： 用了2次循环，不是最佳解决方案
+      //   心里的最佳方案应该是：[12345] 2=> [12145] => [12143] => [15143] => [15123] => [45123]
+
+      // 1. 一共要移动n次
+
+      // 2. n次是怎么移动的 if(n*k >nums.length){n*k-nums.length}
+
+      let change = function (nums, k) {
+        let index = 0
+        let buttleBag = null
+        // let count = 0
+        while (k > nums.length) {
+          k = k - nums.length
+        }
+
+        // 做判断,如果nums.length / k 有余数走下面的内容
+        // 没有余数,则算出商是多少
+        if (nums.length % k != 0) {
+          let buttle = nums[0]
+
+          for (let n = 0; n < nums.length; n++) {
+            // 2 4 1 3 0
+            index = index + k // 0+2 2+2 4+2-5 1+2
+            if (index >= nums.length) {
+              // count = 0;
+              index = index - nums.length
+            }
+            buttleBag = nums[index]
+            nums[index] = buttle
+            buttle = buttleBag
+          }
+        } else {
+          let i = nums.length / k // 4/2 = 2
+          //   思路需要换一下,假设第一个值就被换了 [1,2,3,4]
+          let buttle = nums[nums.length - k] // 3
+          // 按照上述的算法,算i次
+
+          //   for (let n = 0; n < nums.length; n++) {
+          //     if (index >= nums.length) {
+          //       index = index - nums.length + 1 //1
+          //       i--
+          //       if (i == 0) {
+          //         return
+          //       }
+          //     }
+          //     buttleBag = nums[index] //1 3
+          //     nums[index] = buttle // 3234 3214
+          //     buttle = buttleBag // 3
+
+          //     index = index + k
+          //   }
+        }
+      }
+      change(nums, k)
+      console.log(nums)
+
+
+
+      // ******************************* 环形替换 参考解法 *****************************************************************************
+      // [123456] 4 // 因为每走过一个元素的步长是k，走过b个元素，总步长就是bk.然后又因为刚好回到原点，也就是bk是n的倍数。
+
+      // nums.length * n = k*b
+      // nums.length / b = a
+      const gcd = (x, y) => (y ? gcd(y, x % y) : x)
+
+      var rotate = function (nums, k) {
+        const n = nums.length
+        k = k % n // 获取实际移动的k值
+        let count = gcd(k, n) // 不回到原点count = 1, 回到原点后count = 1+ 再走几圈
+        for (let start = 0; start < count; ++start) {
+          let current = start
+          let prev = nums[start] //准备移动的值
+          do {
+            const next = (current + k) % n //下一个移动的值
+            const temp = nums[next] // 先把下个移动的值存起来
+            nums[next] = prev // 值被移动
+            prev = temp // 下一个移动的值变成准备移动的值
+            current = next // 移动值的坐标
+          } while (start !== current) // 判断有没有一个轮回
+        }
+      }
+    </script>
+  </body>
+</html>
