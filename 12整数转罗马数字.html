@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+
+  <body>
+    <script>
+      /*
+            I : 1
+            V : 5
+            X ：10
+            L ：50
+            C ：100
+            D ：500
+            M ：1000
+
+            特殊：
+                VX => IV IX 4   9
+                LC => XL XC 40  90
+                DM => CD CM 400 900
+
+            1994 MCMXCIV
+            58   LVIII
+
+         */
+      // 1-3999/
+      // let transition = function (number) {
+      //     let map = {
+      //         I: 1,
+      //         V: 5,
+      //         X: 10,
+      //         L: 50,
+      //         C: 100,
+      //         D: 500,
+      //         M: 1000,
+      //     }
+      //     number = number.toString()
+      //     let digits = number.length
+      //     let str = '';
+      //     for (let i = 0; i < digits; i++) {
+      //         console.log(`第${digits - i}位`, number[i] * Math.pow(10, digits - i - 1))
+      //         console.log(`第${digits - i}位`, number[i])
+
+      //         if (digits - i == 4) { // 千
+      //             if (number[i] > 4) { // 56789
+      //                 if (number[i] == 9) {
+
+      //                 }
+      //             } else { // 01234
+      //                 if (number[i] == 4) {
+
+      //                 } else {
+      //                     for (let n = 0; n < number[i]; n++) {
+      //                         str += 'M'
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //         else if (digits - i == 3) { // 百
+      //             if (number[i] > 4) { // 56789
+      //                 if (number[i] == 9) {
+      //                     str += 'CM'
+      //                 } else {
+      //                     str += 'D'
+      //                     for (let n = 0; n < number[i] - 5; n++) {
+      //                         str += 'C'
+      //                     }
+      //                 }
+      //             } else { // 01234
+      //                 if (number[i] == 4) {
+      //                     str += 'CD'
+      //                 } else {
+      //                     for (let n = 0; n < number[i]; n++) {
+      //                         str += 'C'
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //         else if (digits - i == 2) { // 十
+      //             if (number[i] > 4) { // 56789
+      //                 if (number[i] == 9) {
+      //                     str += 'XC'
+      //                 } else {
+      //                     str += 'L'
+      //                     for (let n = 0; n < number[i] - 5; n++) {
+      //                         str += 'X'
+      //                     }
+      //                 }
+      //             } else { // 01234
+      //                 if (number[i] == 4) {
+      //                     str += 'XL'
+      //                 } else {
+      //                     for (let n = 0; n < number[i]; n++) {
+      //                         str += 'X'
+      //                     }
+      //                 }
+      //             }
+      //         }
+      //         else if (digits - i == 1) { // 个
+      //             if (number[i] > 4) { // 56789
+      //                 if (number[i] == 9) {
+      //                     str += 'IX'
+      //                 } else {
+      //                     str += 'V'
+      //                     for (let n = 0; n < number[i] - 5; n++) {
+      //                         str += 'I'
+      //                     }
+      //                 }
+      //             } else { // 01234
+      //                 if (number[i] == 4) {
+      //                     str += 'IV'
+      //                 } else {
+      //                     for (let n = 0; n < number[i]; n++) {
+      //                         str += 'I'
+      //                     }
+      //                 }
+      //             }
+      //         }
+
+      //     }
+      //     return str
+      // }
+
+      //     let map = {
+      //         I: 1,
+      //         V: 5,
+      //         X: 10,
+      //         L: 50,
+      //         C: 100,
+      //         D: 500,
+      //         M: 1000,
+      //     }
+      //   let intToRoman = function (num) {
+      //     num = num.toString()
+      //     let unit = num.length // 几位数
+      //     let mapArr = [["I", "V"], ["X", "L"], ["C", "D"], ["M"]]
+      //     let str = ""
+
+      //     for (let i = 0; i < num.length; i++) {
+      //       // i代表个十百千
+      //       let tempStr = ""
+      //       if (num[unit - i - 1] % 5 == 4) {
+      //         // unit-i是从个位数开始
+      //         // 9  IX   5IV
+      //         tempStr = mapArr[i][0]
+      //         if (parseInt(num[unit - i - 1] / 5)) {
+      //           // 9
+      //           tempStr = tempStr + mapArr[i + 1][0]
+      //         } else {
+      //           // 5
+      //           tempStr = tempStr + mapArr[i][1]
+      //         }
+      //         str = tempStr + str //
+      //       } else {
+      //         let juice = num[unit - i - 1] > 4
+      //         // 0123 5678
+
+      //         // 5678
+      //         tempStr = juice ? mapArr[i][1] : ""
+      //         for (let n = 0; n < num[unit - i - 1] - (juice ? 5 : 0); n++) {
+      //           tempStr = tempStr + mapArr[i][0]
+      //         }
+
+      //         str = tempStr + str
+      //       }
+      //     }
+      //     return str
+      //   }
+
+      var intToRoman = function (num) {
+        num = num.toString()
+        let unit = num.length // 几位数
+        let mapArr = [["I", "V"], ["X", "L"], ["C", "D"], ["M"]]
+        let str = ""
+
+        for (let i = 0; i < num.length; i++) {
+          // i代表个十百千
+          let tempStr = ""
+          let index = unit - i - 1 // unit-i-1是从个位数开始
+          if (num[index] % 5 == 4) {
+            tempStr = mapArr[i][0]
+            if (parseInt(num[index] / 5)) {
+              tempStr += mapArr[i + 1][0]
+            } else {
+              tempStr += mapArr[i][1]
+            }
+            str = tempStr + str 
+          } else {
+            if (num[index] > 4) {
+              tempStr = mapArr[i][1]
+              for (let n = 0; n < num[index] - 5; n++) {
+                tempStr += mapArr[i][0]
+              }
+            } else {
+              for (let n = 0; n < num[index]; n++) {
+                tempStr += mapArr[i][0]
+              }
+            }
+            str = tempStr + str
+          }
+        }
+        return str
+      }
+      console.log(intToRoman(1972))
+    </script>
+  </body>
+</html>
