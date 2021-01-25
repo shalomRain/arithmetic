@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 给定一个整型数组，在数组中找出由三个数组成的最大乘积，并输出这个乘积。
+
+      // 方式一：暴力解,将3个数分别相乘，最后取到乘积最大的结果。
+
+      // 方式二：从负数中挑2个最大的数，从正数中挑3个最大的数，暴力解
+
+      // var maximumProduct = function (nums) {
+      //   nums.sort((a, b) => a - b)
+      //   // let newArr = []
+      //   let mulit =
+      //     nums[nums.length - 1] * nums[nums.length - 2] * nums[nums.length - 3]
+
+      //   if (nums[0] < 0 && nums[1] < 0 && nums[nums.length - 1] >= 0) { // 不全是负数，但至少有2个
+
+      //     let n1 = nums[0] * nums[1] * nums[nums.length - 1]
+
+      //     mulit = n1 > mulit ? n1 : mulit
+      //   }
+      //   return mulit
+      // }
+
+      var maximumProduct = function (nums) {
+        // 最小的和第二小的
+        let min1 = Number.MAX_SAFE_INTEGER,
+          min2 = Number.MAX_SAFE_INTEGER
+        console.log(min1, min2)
+        // 最大的、第二大的和第三大的
+        let max1 = -Number.MAX_SAFE_INTEGER,
+          max2 = -Number.MAX_SAFE_INTEGER,
+          max3 = -Number.MAX_SAFE_INTEGER
+        console.log(max1, max2, max3)
+        for (const x of nums) {
+          if (x < min1) {
+            min2 = min1
+            min1 = x
+          } else if (x < min2) {
+            min2 = x
+          }
+          //选出最小的
+          if (x > max1) {
+            max3 = max2
+            max2 = max1
+            max1 = x
+          } else if (x > max2) {
+            max3 = max2
+            max2 = x
+          } else if (x > max3) {
+            max3 = x
+          }
+          //选出最大的
+        }
+
+        return Math.max(min1 * min2 * max1, max1 * max2 * max3)
+      }
+
+      console.log(maximumProduct([-100, -98, -1, 2, 3, 4]))
+    </script>
+  </body>
+</html>

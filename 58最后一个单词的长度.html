@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var lengthOfLastWord = function (s) {
+        // 方法一：
+        // if(s.length == 0) return 0
+        // let index = s.lastIndexOf(" ")
+        // if (index == s.length - 1) {
+        //   // 12 aabbcc
+        //   s = s.substr(0, index)
+        //   return lengthOfLastWord(s)
+        // } else {
+        //   return s.length - index - 1
+        // }
+
+        // 方法二
+        s = s.trim()
+        if (s.length == 0) return 0
+        let str = ""
+        for (let i = 0; i < s.length; i++) {
+          if (s[i] == " ") {
+            //   如果遇到空格的,则取后面内容拼接
+            str = ""
+          } else {
+            str += s[i]
+            str1 = str
+          }
+        }
+        return str1.length
+
+        // 方法三：结合1跟2
+        s = s.trim()
+        if (s.length == 0) return 0
+        let index = s.lastIndexOf(" ")
+        return s.length - index - 1
+      }
+
+      console.log(lengthOfLastWord(" "))
+    </script>
+  </body>
+</html>

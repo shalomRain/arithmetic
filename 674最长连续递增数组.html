@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //  给定一个未经排序的整数数组，找到最长且连续递增的子序列，并返回该序列的长度。
+      /**
+       * @param {number[]} nums
+       * @return {number}
+       */
+      //   var findLengthOfLCIS = function (nums) {
+      //     if (nums.length == 0) return 0
+      //     //   从第一个循环，后面的必然大于前面的，如果没有大于，则获取下标
+      //     let length = 1
+      //     let count = 1
+      //     for (let i = 0; i < nums.length - 1; i++) {
+      //       if (nums[i + 1] - nums[i] <= 0) {
+      //         //   则说明到头了,清除count
+      //         length = count - length > 0 ? count : length
+      //         count = 1
+      //       } else {
+      //         count++
+      //         //   累加
+      //         length = count - length > 0 ? count : length
+      //       }
+      //     }
+      //     return length
+      //   }
+
+      var findLengthOfLCIS = function (nums) {
+        let ans = 0
+        const n = nums.length
+        let start = 0
+        for (let i = 0; i < n; i++) {
+          if (i > 0 && nums[i] <= nums[i - 1]) {
+            start = i // 到头给start重新赋值
+          }
+          ans = Math.max(ans, i - start + 1) // 其他情况累加,且取大值
+        }
+        return ans
+      }
+
+      console.log(findLengthOfLCIS([1]))
+    </script>
+  </body>
+</html>
