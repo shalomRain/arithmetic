@@ -1,0 +1,49 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // CandyA - A[i] + B[j] === CandyB - B[j] + A[i]
+      // CandyA - CandyB = 2(A[i] - B[j])
+
+      //   var fairCandySwap = function (A, B) {
+      //     let CandyA = A.reduce((total, currentValue) => total + currentValue)
+      //     let CandyB = B.reduce((total, currentValue) => total + currentValue)
+      //     let sub = (CandyA - CandyB) / 2
+      //     for (let i = 0; i < A.length; i++) {
+      //       for (let j = 0; j < B.length; j++) {
+      //         //   把A[i]给了b[j]
+      //         if (sub == A[i] - B[j]) {
+      //           return [A[i], B[j]]
+      //         }
+      //       }
+      //     }
+      //   }
+
+      //   哈希表 A[i] = B[j] + delta
+      var fairCandySwap = function (A, B) {
+        const sumA = A.reduce((total, currentValue) => total + currentValue),
+          sumB = B.reduce((total, currentValue) => total + currentValue)
+        const delta = Math.floor((sumA - sumB) / 2)
+        const rec = new Set(A)
+        var ans
+        for (const y of B) {
+          const x = y + delta
+          if (rec.has(x)) {
+            ans = [x, y]
+            break
+          }
+        }
+        return ans
+      }
+
+      let A = [1, 2, 5]
+      let B = [2, 4]
+      console.log(fairCandySwap(A, B))
+    </script>
+  </body>
+</html>

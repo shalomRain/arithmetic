@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 输入：nums = [1, 7, 3, 6, 5, 6]  [2,1,3,3,3,9]  4
+      // 输出：3
+
+      // 先求出总和，然后相减
+      var pivotIndex = function (nums) {
+        let beforeNum = 0
+        let afterNum = 0
+        nums.forEach(num => {
+          afterNum += num
+        })
+        afterNum -= nums[0]
+        for (let i = 1; i < nums.length + 1; i++) {
+          if (beforeNum == afterNum) {
+            return i - 1
+          }
+          beforeNum += nums[i - 1]
+          afterNum -= nums[i]
+        }
+
+        return -1
+      }
+
+      console.log(pivotIndex([-1, -1, 0, 1, 1, 0]))
+
+      // 参考答案：由于左侧 = 右侧才算满足条件，左侧：sum， 右侧:total - sum - nums[i],则转化为 nums[i]+2sum = total
+    </script>
+  </body>
+</html>
