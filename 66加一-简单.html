@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      //   var plusOne = function (digits) {
+      //     //   得到一个数+1,如果得到两位数,得到一个数+1
+      //     let count = 0
+      //     let newArr = []
+      //     let length = digits.length
+      //     for (let i = 1; i <= length; i++) {
+      //       if (
+      //         (digits[length - i] + 1).toString().length == 2 &&
+      //         count + 1 == i
+      //       ) {
+      //         count++
+      //       }
+      //     }
+      //     if (count == length) {
+      //       newArr.push(1)
+      //       for (let i = 0; i < length; i++) {
+      //         newArr.push(0)
+      //       }
+      //     } else {
+      //       for (let i = 0; i < length - count - 1; i++) {
+      //         newArr.push(digits[i])
+      //       }
+      //       newArr.push(digits[length - count - 1] + 1)
+      //       for (let i = 0; i < count; i++) {
+      //         newArr.push(0)
+      //       }
+      //     }
+      //     return newArr
+      //   }
+
+      //   参考答案
+
+      //   进1的思路：先把数值开始++, 如果是2位数,则继续循环+1;如果不是两位数,则直接返回digits
+
+      //   特殊情况特殊对待
+      var plusOne = function (digits) {
+        const len = digits.length
+        for (let i = len - 1; i >= 0; i--) {
+          digits[i]++
+          digits[i] %= 10
+          if (digits[i] != 0) return digits
+        }
+        digits = [...Array(len + 1)].map(_ => 0)
+        digits[0] = 1
+        return digits
+      }
+
+      console.log(plusOne([9, 9]))
+    </script>
+  </body>
+</html>

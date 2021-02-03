@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // nums = [1,3,-1,-3,5,3,6,7] k = 3 k = 4
+      //  k = 4  1 2  k = 6  2 3  k = 8  3 4
+        // var medianSlidingWindow = function (nums, k) {
+        //   let middleArr = []
+        //   if (k % 2 == 1) {
+        //     for (let i = 0; i <= nums.length - k; i++) {
+        // // 相当于每次获取新数组后，重新排序
+        //       let newArr = nums.slice(i, k + i).sort((a, b) => a - b)
+        //       middleArr.push(newArr[(k - 1) / 2])
+        //     }
+        //   } else {
+        //     for (let i = 0; i <= nums.length - k; i++) {
+        //       let newArr = nums.slice(i, k + i).sort((a, b) => a - b)
+        //       middleArr.push((newArr[k / 2] + newArr[k / 2 - 1]) / 2)
+        //     }
+        //   }
+        //   return middleArr
+        // }
+
+      var medianSlidingWindow = function (nums, k) {
+        let middleArr = []
+        let newArr = nums.slice(0, k)
+        for (let i = 0; i < nums.length - k; i++) {
+          // 一个数组是移动窗口的数组，一个数组是移动窗口后排序的数组
+          // 先获取一个移动窗口数组 [1,3,-1] 排序 [-1,1,3],推入中位数，获取移动窗口被删除的数字1,在排序中删除数字1,推入一个新值-3,[3,-1,-3], [-3,-1,3]
+          newArr.shift()
+          newArr.push(nums[k + i])
+        }
+        return middleArr
+      }
+      let n = [1, 3, -1, -3, 5, 3, 6, 7],
+        k = 3
+      console.log(medianSlidingWindow(n, k))
+    </script>
+  </body>
+</html>
