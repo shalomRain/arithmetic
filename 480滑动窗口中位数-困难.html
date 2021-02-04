@@ -1,0 +1,169 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // nums = [1,3,-1,-3,5,3,6,7] k = 3 k = 4
+      //  k = 4  1 2  k = 6  2 3  k = 8  3 4
+      // var medianSlidingWindow = function (nums, k) {
+      //   let middleArr = []
+      //   if (k % 2 == 1) {
+      //     for (let i = 0; i <= nums.length - k; i++) {
+      // // 相当于每次获取新数组后，重新排序
+      //       let newArr = nums.slice(i, k + i).sort((a, b) => a - b)
+      //       middleArr.push(newArr[(k - 1) / 2])
+      //     }
+      //   } else {
+      //     for (let i = 0; i <= nums.length - k; i++) {
+      //       let newArr = nums.slice(i, k + i).sort((a, b) => a - b)
+      //       middleArr.push((newArr[k / 2] + newArr[k / 2 - 1]) / 2)
+      //     }
+      //   }
+      //   return middleArr
+      // }
+
+      var medianSlidingWindow = function (nums, k) {
+        let middleArr = []
+        let sortArr = []
+        for (let i = 0; i < k; i++) {
+          sortArr.push(nums[i])
+        }
+        sortArr.sort((a, b) => a - b)
+        if (k % 2 == 1) {
+          middleArr.push(sortArr[(k - 1) / 2])
+        } else {
+          middleArr.push((sortArr[k / 2] + sortArr[k / 2 - 1]) / 2)
+        }
+        // 中位数推入
+
+        // 移除老数据，插入新数据
+        if (k % 2 == 1) {
+          for (let i = 0; i < nums.length - k; i++) {
+            let oldNum = nums[i]
+            let newNum = nums[i + k]
+            let deleIndex = sortArr.indexOf(oldNum)
+            sortArr.splice(deleIndex, 1)
+            sortArray(sortArr, newNum)
+            middleArr.push(sortArr[(k - 1) / 2])
+          }
+        } else {
+          for (let i = 0; i < nums.length - k; i++) {
+            let oldNum = nums[i]
+            let newNum = nums[i + k]
+            let deleIndex = sortArr.indexOf(oldNum)
+            sortArr.splice(deleIndex, 1)
+            sortArray(sortArr, newNum)
+            middleArr.push((sortArr[k / 2] + sortArr[k / 2 - 1]) / 2)
+          }
+        }
+
+        // newArr 为最开始的数组
+        return middleArr
+      }
+
+      let sortArray = function (arr, addNum) {
+        let arrMidIndex = parseInt((0 + arr.length - 1) / 2)
+        let midNum = arr[arrMidIndex]
+        if (addNum > midNum) {
+          // 从最右边大值做比较
+          for (let i = arr.length - 1; i > arrMidIndex; i--) {
+            if (addNum > arr[i]) {
+              if (i == arr.length - 1) {
+                // 比最大的还大
+                arr.push(addNum)
+              } else {
+                arr.splice(i, 0, addNum)
+              }
+              return
+            }
+          }
+          arr.splice(arrMidIndex + 1, 0, addNum)
+          return
+          // midNum<addNum < arr[arrMidIndex + 1]
+        } else {
+          // 从最左边的小值比较
+          for (let i = 0; i < arrMidIndex; i++) {
+            // addNum < arr[arrMidIndex - 1]
+            if (addNum < arr[i]) {
+              if (!i) {
+                arr.unshift(addNum)
+              } else {
+                arr.splice(i, 0, addNum)
+              }
+              return
+            }
+          }
+          arr.splice(arrMidIndex, 0, addNum)
+          return
+        }
+      }
+      // [1.00000,-1.00000,-1.00000,3.00000,5.00000,6.00000]
+      let n = [1, 3, -1, -3, 5, 3, 6, 7],
+        k = 3
+      console.log(medianSlidingWindow(n, k))
+
+      /* 
+
+
+ var medianSlidingWindow = function (nums, k) {
+        let middleArr = []
+        let sortArr = []
+        for (let i = 0; i < k; i++) {
+          sortArr.push(nums[i])
+        }
+        sortArr.sort((a, b) => a - b)
+        if (k % 2 == 1) {
+          middleArr.push(sortArr[(k - 1) / 2])
+        } else {
+          middleArr.push((sortArr[k / 2] + sortArr[k / 2 - 1]) / 2)
+        }
+        // 中位数推入
+
+        // 移除老数据，插入新数据
+        if (k % 2 == 1) {
+          for (let i = 0; i < nums.length - k; i++) {
+            let oldNum = nums[i]
+            let newNum = nums[i + k]
+            let deleIndex = sortArr.indexOf(oldNum)
+            sortArr.splice(deleIndex, 1)
+            sortArr = sortArray(sortArr, newNum)
+            middleArr.push(sortArr[(k - 1) / 2])
+          }
+        } else {
+          for (let i = 0; i < nums.length - k; i++) {
+            let oldNum = nums[i]
+            let newNum = nums[i + k]
+            let deleIndex = sortArr.indexOf(oldNum)
+            sortArr.splice(deleIndex, 1)
+            sortArr = sortArray(sortArr, newNum)
+            middleArr.push((sortArr[k / 2] + sortArr[k / 2 - 1]) / 2)
+          }
+        }
+
+        // newArr 为最开始的数组
+        return middleArr
+      }
+
+
+      let sortArray = function (arr, addNum) {
+        for (let i = 0; i < arr.length; i++) {
+          if(addNum < arr[i]){
+            if (!i) {
+              arr.unshift(addNum)
+            } else {
+              arr.splice(i, 0, addNum)
+            }
+            return arr
+          }
+        }
+        arr.push(addNum)
+        return arr
+      }
+      */
+    </script>
+  </body>
+</html>

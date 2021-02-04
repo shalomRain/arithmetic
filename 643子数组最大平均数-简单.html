@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // [1,12,-5,-6,50,3]
+
+      // var findMaxAverage = function (nums, k) {
+      //   let sum = -Number.MAX_VALUE
+      //   for (let i = 0; i <= nums.length - k; i++) {
+      //     let newArr = nums.slice(i, k + i)
+      //     sum = Math.max(
+      //       newArr.reduce((total, currentValue) => total + currentValue),
+      //       sum
+      //     )
+      //   }
+      //   return sum / k
+      // }
+
+      var findMaxAverage = function (nums, k) {
+        let sum = 0
+        for (let i = 0; i < k; i++) {
+          sum += nums[i]
+        }
+        let lastSum = sum;
+        for (let i = 0; i < nums.length - k; i++) { 
+          let sub = nums[i + k] - nums[i]
+          lastSum += sub
+          sum = Math.max(lastSum, sum)
+        }
+        return sum / k
+      }
+
+      //   [0,4,0,3,2] ,1
+      console.log(findMaxAverage([1, 12, -5, -6, 50, 3], 4))
+      console.log(findMaxAverage([0, 4, 0, 3, 2], 1))
+      console.log(findMaxAverage([7, 4, 5, 8, 8, 3, 9, 8, 7, 6], 7))
+    </script>
+  </body>
+</html>
