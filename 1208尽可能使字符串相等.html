@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // maxCost cost 可以组合
+      //   var equalSubstring = function (s, t, maxCost) {
+      //     let maxLength = 0
+      //     let sumCost = 0
+      //     let newArr = []
+      //     for (let i = 0; i < s.length; i++) {
+      //       const cost = Math.abs(t[i].charCodeAt() - s[i].charCodeAt())
+      //       if (cost <= maxCost) {
+      //         // 如果cost相加等于maxCost,则也说明断了
+      //         sumCost += cost // 1 2   3  13 3
+      //         if (sumCost > maxCost) {
+      //           //说明断了
+      //           let oldNum = newArr.shift()
+      //           newArr.push(cost)
+      //           sumCost -= oldNum
+      //         //   maxLength = Math.max(maxLength, newArr.length)
+      //         } else {
+      //           // 累加中
+      //           newArr.push(cost)
+      //         }
+      //         maxLength = Math.max(maxLength, newArr.length)
+      //       } else {
+      //         // 如果key不是连续，而是断了，则说明长度断了
+      //         maxLength = Math.max(maxLength, newArr.length)
+      //         sumCost = 0
+      //         newArr = []
+      //       }
+      //     }
+      //     return maxLength
+      //   }
+
+        var equalSubstring = function (s, t, maxCost) {
+          let maxLength = 0
+          let sumCost = 0
+          let newArr = []
+          for (let i = 0; i < s.length; i++) {
+            const cost = Math.abs(t[i].charCodeAt() - s[i].charCodeAt())
+            if (cost <= maxCost) {
+              // 如果cost相加等于maxCost,断了
+              sumCost += cost
+              if (sumCost > maxCost) {
+                //断了
+                let oldNum = newArr.shift()
+                sumCost -= oldNum
+              }
+              newArr.push(cost)
+              maxLength = Math.max(maxLength, newArr.length)
+            } else {
+              // 如果key不是连续，而是断了，则说明长度断了
+              sumCost = 0
+              newArr = []
+            }
+          }
+          return maxLength
+        }
+
+      // bc ac 1
+      //       "abcdeev"
+      // "bcdfddc"
+      // 6
+      // 3 6 15 11 3 9 8 15 22 10 3 7 3 4 0
+      let a = "krpgjbjjznpzdfy"
+      let b = "nxargkbydxmsgby"
+      let c = 14
+
+      // 如果我是用数组来维护
+      //
+      // 如果value不是连续，而是断了，则说明长度断了
+      // 如果是相加断掉的, sumCost -
+      //   let a = "ujteygggjwxnfl"  // 5
+      //   let b = "nstsenrzttikoy"
+      //   let c = 43
+      console.log(equalSubstring(a, b, c))
+    </script>
+  </body>
+</html>
