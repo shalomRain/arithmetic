@@ -18,7 +18,47 @@
       //   return benefit
       // }
 
-      console.log(maxProfit([2,1,3,5,4]))
+      // 思路：如果最小值发生变化,那么右侧的数组的最大值也会发生变化。算的是最大值-最小值
+      // var maxProfit = function (prices) {
+      //   let minPrices = prices[0]
+      //   let maxPricesArr = prices.slice(1, prices.length)
+      //   let maxPrices = Math.max(...maxPricesArr)
+      //   let profit = maxPrices - minPrices
+      //   for (let i = 1; maxPricesArr.length > 1; i++) {
+      //     let subNum = maxPricesArr.shift()
+      //     if (subNum < minPrices) {
+      //       // 如果最小值更新,最大值也要更新
+      //       minPrices = subNum
+      //       maxPrices = Math.max(...maxPricesArr)
+      //       profit = Math.max(profit, maxPrices - minPrices)
+      //     }
+      //   }
+      //   return profit > 0 ? profit : 0
+      // }
+
+      // ******************官方解答***********************************
+      // 思路：找到最小的值,如果发现右侧有比当前最小值更大的,则算出利润。算的是当前值跟最小值的对比
+      var maxProfit = function (prices) {
+        let minPrice = Number.MAX_VALUE
+        let maxProfit = 0
+        for (let i = 0; i < prices.length; i++) {
+          if (prices[i] < minPrice) {
+            // 找出最小值
+            minPrice = prices[i]
+          } else if (prices[i] - minPrice > maxProfit) {
+            // 如果目前值>目前最小值,则算出利润
+            maxProfit = prices[i] - minPrice
+          }
+        }
+        return maxProfit
+      }
+
+      // [7,6,4,3,1]
+      // console.log(maxProfit([2, 1, 3, 5, 4]))
+      console.log(maxProfit([1, 2])) //1
+      console.log(maxProfit([7, 1, 5, 3, 6, 4])) //5
+      console.log(maxProfit([7, 6, 4, 3, 1])) // 0
+      console.log(maxProfit([7, 1, 5, 3, 6, 4])) // 5
     </script>
   </body>
 </html>
