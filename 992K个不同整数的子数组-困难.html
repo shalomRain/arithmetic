@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // A = [1,2,1,2,3], K = 2 //7
+      // A = [1,2,1,3,4], K = 3 //3
+      //   var subarraysWithKDistinct = function (A, k) {
+      //     let count = 0
+      //     //   双指针
+      //     for (let i = 0; i < A.length; i++) {
+      //       // 左边的坐标
+      //       let result = []
+      //       let resultRepeate = result
+      //       // 右边的坐标
+      //       for (let j = i; resultRepeate.length <= k && j < A.length; j++) {
+      //         result.push(A[j])
+      //         resultRepeate = Array.from(new Set(result))
+      //         if (resultRepeate.length == k) {
+      //           count++
+      //         }
+      //       }
+      //     }
+      //     return count
+      //   }
+
+      //   var subarraysWithKDistinct = function (A, k) {
+      //     let count = 0
+      //     //   双指针
+      //     for (let i = 0; i < A.length; i++) {
+      //       // 左边的坐标
+      //       let result = []
+      //       let resultRepeate = []
+      //       // 右边的坐标
+      //       for (let j = i; resultRepeate.length <= k && j < A.length; j++) {
+      //         result.push(A[j])
+      //         // resultRepeate = Array.from(new Set(result))
+      //         let obj = {}
+      //         resultRepeate = []
+      //         if (result.length >= k) {
+      //           // 数组长度超过k的时候再做去重
+      //           for (let i of result) {
+      //             if (!obj[i]) {
+      //               resultRepeate.push(i)
+      //               obj[i] = true
+      //             }
+      //           }
+      //           if (resultRepeate.length == k) {
+      //             count++
+      //           }
+      //         }
+      //       }
+      //     }
+      //     return count
+      //   }
+
+      var subarraysWithKDistinct = function (A, k) {
+        let count = 0
+        //   双指针
+        for (let i = 0; i < A.length; i++) {
+          // 左边的坐标
+          let result = []
+          let resultRepeate = result
+          // 右边的坐标
+          for (let j = i; resultRepeate.length <= k && j < A.length; j++) {
+            result.push(A[j])
+            if (result.length >= k) {
+              resultRepeate = Array.from(new Set(result))
+              if (resultRepeate.length == k) {
+                count++
+              }
+            }
+          }
+        }
+        return count
+      }
+      subarraysWithKDistinct([1, 2, 1, 2, 3], 2) // 7
+      //   subarraysWithKDistinct([1,2,1,3,4],3) // 3
+      //   subarraysWithKDistinct([1,2],1) // 2
+      //   subarraysWithKDistinct([2,1,1,1,2],1) // 8
+    </script>
+  </body>
+</html>

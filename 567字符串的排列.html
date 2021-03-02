@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      // 排序之一并不仅仅只有倒叙 abc => acb => bca => bac => cba => cab
+
+      var checkInclusion = function (s1, s2) {
+        let s1Length = s1.length
+        let s2Length = s2.length
+        if (s1Length > s2Length) return false
+        let result = s2.includes(s1)
+
+        // s2中只要有连续的值为s1的内容
+        for (let i = 0; i < s2.length; i++) {
+          // s1.includes(s1[0])
+          for (let j = 0; j < s1.length; j++) {
+            let num = 0
+            if (s2[i] == s1[j]) {
+              //   只要有一个满足了,跳出当前循环,并窃取掉s1[j]
+              count++
+              break
+            } else {
+              //   如果每个都没满足,则
+              num++
+              if (num == s1.length - 1) {
+                count = 0
+              }
+            }
+          }
+          // s2中只要包含s1中的任意一个,既满足条件,裁剪掉s1,继续循环
+        }
+      }
+
+      //   let a = "ab"
+      //   let b = "eidbaooo"
+
+      let a = "abc"
+      let b = "bbbca"
+      console.log(checkInclusion(a, b))
+    </script>
+  </body>
+</html>
