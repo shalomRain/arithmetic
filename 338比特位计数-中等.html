@@ -1,0 +1,166 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {number} num
+       * @return {number[]}
+       */
+
+      /* 
+       2 [0,1,1]   5 [0,1,1,2,1,2]
+        */
+
+      //   var countBits = function (num) {
+      //     //   要for循环num次
+      //     let newArr = [0]
+      //     let returnNum = [0]
+
+      //     for (let i = 1; i <= num; i++) {
+      //       let timeS = 0
+      //       // 如果最后一位是0,则+1,如果最后一位是1,则换0
+      //       if (returnNum[returnNum.length - 1] == 0) {
+      //         returnNum[returnNum.length - 1] = 1
+      //       } else {
+      //         //  则进1
+      //         //  如何进1，首先最后一位变成0，然后进1
+      //         returnNum = systemChange(returnNum)
+      //       }
+      //       console.log(returnNum, i)
+      //       for (let n = 0; n < returnNum.length; n++) {
+      //         if (returnNum[n] == 1) {
+      //           timeS++
+      //         }
+      //       }
+      //       newArr.push(timeS)
+      //     }
+      //     return newArr
+      //   }
+
+      //   // 让returnNum一直+1就能得到2进制的值
+      //   function systemChange(returnNum) {
+      //     let returnArrLength = returnNum.length
+
+      //     // 如何进1，首先最后一位变成0，然后进1
+
+      //     returnNum[returnArrLength - 1] = 0
+
+      //     if (returnArrLength == 1) {
+      //       // 则说明在最前面加1
+      //       returnNum.unshift(1)
+      //       return returnNum
+      //     } else if (returnNum[returnArrLength - 2] == 0) {
+      //       // 直接进1即可
+      //       returnNum[returnArrLength - 2] = 1
+      //       return returnNum
+      //     } else {
+      //       // 下一个还是1,递归
+      //       let num = returnNum.splice(returnNum, returnNum.length - 1)
+      //       let newReturnNum = systemChange(num)
+      //       return [
+      //         ...newReturnNum,
+      //         ...returnNum.splice(returnNum.length - 1, returnNum.length)
+      //       ]
+      //     }
+      //   }
+      // *********************************************************************************************
+      //   var countBits = function (num) {
+      //     //   要for循环num次
+      //     let newArr = [0]
+      //     let returnNum = [0]
+      //     let timeS = 0
+      //     for (let i = 1; i <= num; i++) {
+      //       // 如果最后一位是0,则+1,如果最后一位是1,则换0
+      //       if (returnNum[returnNum.length - 1] == 0) {
+      //         returnNum[returnNum.length - 1] = 1
+      //         timeS++
+      //       } else {
+      //         //  则进1
+      //         //  如何进1，首先最后一位变成0，然后进1
+      //         let { returnNums, timeSs } = systemChange(returnNum, timeS)
+      //         returnNum = returnNums
+      //         timeS = timeSs
+      //       }
+      //       console.log(returnNum, timeS, i)
+      //       newArr.push(timeS)
+      //     }
+      //     return newArr
+      //   }
+
+      //   // 让returnNum一直+1就能得到2进制的值
+      //   function systemChange(returnNum, timeS) {
+      //     let returnArrLength = returnNum.length
+
+      //     // 如何进1，首先最后一位变成0，然后进1
+
+      //     returnNum[returnArrLength - 1] = 0
+      //     timeS--
+      //     if (returnArrLength == 1) {
+      //       // 则说明在最前面加1
+      //       returnNum.unshift(1)
+      //       timeS++
+      //       return {
+      //         returnNums: returnNum,
+      //         timeSs: timeS
+      //       }
+      //     } else if (returnNum[returnArrLength - 2] == 0) {
+      //       // 直接进1即可
+      //       returnNum[returnArrLength - 2] = 1
+      //       timeS++
+      //       return {
+      //         returnNums: returnNum,
+      //         timeSs: timeS
+      //       }
+      //     } else {
+      //       // 下一个还是1,递归
+      //       let num = returnNum.slice(0, returnNum.length - 1)
+      //       let { returnNums: newReturnNum, timeSs } = systemChange(num, timeS)
+      //       return {
+      //         returnNums: [
+      //           ...newReturnNum,
+      //           ...returnNum.slice(returnNum.length - 1, returnNum.length)
+      //         ],
+      //         timeSs
+      //       }
+      //     }
+      //   }
+      //   console.log(countBits(5))
+
+      // ****************************官方一：直接计算********************************************
+      var countBits = function (num) {
+        const bits = new Array(num + 1).fill(0)
+        for (let i = 0; i <= num; i++) {
+          bits[i] = countOnes(i)
+        }
+        return bits
+      }
+
+      //   sum += 1 => sum = sum + 1  x &= x-1 => x = x & x -1
+
+      const countOnes = x => {
+        let ones = 0
+        while (x > 0) {
+          //   x &= x - 1
+          x = x & (x - 1) // 位运算：x=x&(x−1)可以将x的二进制数的最后一个1变成0
+
+        //   比如 2 & 1 => 0
+        /* 下面为2进制表达
+            1 0
+        &   0 1
+        =   0 0
+        */
+          ones++
+        }
+        return ones
+      }
+
+      console.log(countBits(3))
+    </script>
+  </body>
+</html>
