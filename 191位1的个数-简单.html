@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {number} n - a positive integer
+       * @return {number}
+       */
+      var hammingWeight = function (n) {
+        // n现在是10，需要转8
+        let originNum = n.toString(8)
+        //   前面补0
+        let OneLength = originNum.split("")
+        let zeroLength = 32 - OneLength.length
+        let zeroArr = new Array(zeroLength).fill(0)
+        let newArr = [...zeroArr,...OneLength]
+        let count = 0;
+        for (let i = 0; i < newArr.length; i++) {
+            if(newArr[i] == 1){
+                count++
+            }
+        }
+        return count
+      }
+      console.log(hammingWeight(
+00000000000000000000000000001011))
+    </script>
+  </body>
+</html>

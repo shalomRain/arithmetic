@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {string} S
+       * @param {string} T
+       * @return {boolean}
+       */
+      var backspaceCompare = function (S, T) {
+        let stackS = []
+        let stackT = []
+        let listS = S.split("")
+        let listT = T.split("")
+        let s = stackFun(stackS, listS).join("")
+        let t = stackFun(stackT, listT).join("")
+        if (s == t) {
+          return true
+        }
+        return false
+      }
+
+      let stackFun = (stack, list) => {
+        for (let i = 0; i < list.length; i++) {
+          if (list[i] == "#") {
+            stack.pop()
+          } else {
+            stack.push(list[i])
+          }
+        }
+        return stack
+      }
+    </script>
+  </body>
+</html>
