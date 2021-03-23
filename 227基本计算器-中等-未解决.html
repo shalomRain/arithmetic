@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Document</title>
+</head>
+
+<body>
+  <script>
+    // 给你一个字符串表达式 s ， 请你实现一个基本计算器来计算并返回它的值。
+
+    // 整数除法仅保留整数部分
+
+    /**
+     * @param {string} s
+     * @return {number}
+     */
+    // var realCalculate = function (newArr) {
+    //   let multiplication = newArr.indexOf("*")
+    //   let divide = newArr.indexOf("/")
+    //   let add = newArr.indexOf("+")
+    //   let sub = newArr.indexOf("-")
+
+    //   let MulDiv = multiplication > divide ? divide > 0 ? divide : multiplication : multiplication > 0 ?
+    //     multiplication : divide;
+    //   let addSub = add > sub ? sub > 0 ? sub : add : add > 0 ?
+    //     add : sub;
+    //   if (MulDiv > 0) {
+    //     let num = 0;
+    //     if (newArr[MulDiv] == "*") {
+    //       num = newArr[MulDiv - 1] * newArr[MulDiv + 1]
+    //     } else {
+    //       num = parseInt(newArr[MulDiv - 1] / newArr[MulDiv + 1])
+    //     }
+    //     newArr.splice(MulDiv - 1, 3, num)
+    //   } else if (addSub > 0) {
+    //     if (newArr[addSub] == "+") {
+    //       num = Number(newArr[addSub - 1]) + Number(newArr[addSub + 1])
+    //     } else {
+    //       num = Number(newArr[addSub - 1]) - Number(newArr[addSub + 1])
+    //     }
+    //     newArr.splice(addSub - 1, 3, num)
+    //   }
+    //   if (newArr.length != 1) {
+    //     return realCalculate(newArr)
+    //   } else {
+    //     console.log(newArr[0])
+    //     return newArr[0]
+    //   }
+    // }
+
+    // var calculate = function (s) {
+    //   // 拿到一个字符串，根据+-*/来截取数组
+    //   // 拆解 + - * /  3 + 5 * 10
+    //   // 从左往右，如果遇到 * or / ,取除 * / 前面 or 后面的两个数值, 然后继续递归(感觉这里可以使用动态规划)
+    //   let arr = s.split("")
+    //   let newArr = []
+    //   let str = ""
+    //   for (let i = 0; i < arr.length; i++) {
+    //     if (
+    //       arr[i] == "+" ||
+    //       arr[i] == "-" ||
+    //       arr[i] == "*" ||
+    //       arr[i] == "/"
+    //     ) {
+    //       newArr.push(str)
+    //       newArr.push(arr[i])
+    //       str = ""
+    //     } else {
+    //       str += arr[i]
+    //       if (i == arr.length - 1) newArr.push(str)
+    //     }
+    //   }
+    //   console.log(newArr)
+    //   return realCalculate(newArr)
+    // }
+    // 上述方法会超时，递归
+
+    // ************官方解答：栈************************
+    var calculate = function (s) {
+      s = s.trim();
+      const stack = new Array();
+      let preSign = '+';
+      let num = 0;
+      const n = s.length;
+      for (let i = 0; i < n; ++i) {
+        if (!isNaN(Number(s[i])) && s[i] !== ' ') {
+          num = num * 10 + s[i].charCodeAt() - '0'.charCodeAt();
+        }
+        // s[i].charCodeAt() - '0'.charCodeAt() 可以确定是s[i]的具体数值 相等于 Number(s[i])
+        if (isNaN(Number(s[i])) || i === n - 1) {
+          // 如果s[i]是符号or是最后一个值,判断上一个符号，如果是乘除则计算好，再推入。如果是加减则直接推入
+          switch (preSign) {
+            case '+':
+              stack.push(num);
+              break;
+            case '-':
+              stack.push(-num);
+              break;
+            case '*':
+              stack.push(stack.pop() * num);
+              break;
+            default:
+              stack.push(stack.pop() / num | 0);
+          }
+          preSign = s[i];
+          num = 0;
+        }
+      }
+      let ans = 0;
+      while (stack.length) {
+        ans += stack.pop();
+      }
+      return ans;
+    };
+
+    calculate("3/2+2*2")
+
+  </script>
+</body>
+
+</html>
