@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      /**
+       * @param {number} x
+       * @return {boolean}
+       */
+
+      // 双指针来解决 121 or 用栈来解决
+      var isPalindrome = function (x) {
+        let arr = []
+        let arr1 = x.toString().split("")
+        console.log(arr1)
+        let xLength = arr1.length
+        let remainer = xLength % 2
+        for (let i = 0; i < parseInt(xLength / 2); i++) {
+          arr.push(arr1[i])
+        }
+
+        for (let i = remainer?parseInt(xLength / 2) + 1:parseInt(xLength / 2); i < arr1.length; i++) {
+          if (arr.pop() != arr1[i]) {
+            return false
+          }
+        }
+        return true
+      }
+      // 3 / 2 = 1   1 + 1
+      // 4 / 2 = 2   
+      isPalindrome(-121)
+    </script>
+  </body>
+</html>
