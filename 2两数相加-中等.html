@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+    <script>
+      var addTwoNumbers = function (l1, l2) {
+        //   数组反转,然后转数字 ，数字相加 再反转
+        // l1.reverse()
+        let sum1 = 0
+        let sum2 = 0
+        for (let i = 0; i < l1.length; i++) {
+          sum1 += l1[i] * Math.pow(10, i)
+        }
+        for (let i = 0; i < l2.length; i++) {
+          sum2 += l2[i] * Math.pow(10, i)
+        }
+        let sum3 = (sum1 + sum2).toString()
+        let arr = []
+        for (let i = 0; i < sum3.length; i++) {
+            arr.unshift(Number(sum3[i]))
+        }
+        return arr
+      }
+
+      let a = [2, 4, 3, 1]
+      let b = [5, 6, 4, 9]
+      addTwoNumbers(a, b)
+    </script>
+  </body>
+</html>
